@@ -77,19 +77,19 @@ RCT_EXPORT_METHOD(geocodeAddress:(NSString *)address callback: (RCTResponseSende
     CLPlacemark* placemark = [placemarks objectAtIndex:i];
 
     NSDictionary *result = @{
-     @"name": placemark.name,
+     @"name": placemark.name ?: [NSNull null],
      @"location": @{
          @"lat": [NSNumber numberWithDouble:placemark.location.coordinate.latitude],
          @"lng": [NSNumber numberWithDouble:placemark.location.coordinate.longitude],
          },
-     @"country": placemark.country,
-     @"locality": placemark.locality,
-     @"subLocality": placemark.subLocality,
-     @"thoroughfare": placemark.thoroughfare,
-     @"subThoroughfare": placemark.subThoroughfare,
-     @"postalCode": placemark.postalCode,
-     @"administrativeArea": placemark.administrativeArea,
-     @"subAdministrativeArea": placemark.subAdministrativeArea,
+     @"country": placemark.country ?: [NSNull null],
+     @"locality": placemark.locality ?: [NSNull null],
+     @"subLocality": placemark.subLocality ?: [NSNull null],
+     @"thoroughfare": placemark.thoroughfare ?: [NSNull null],
+     @"subThoroughfare": placemark.subThoroughfare ?: [NSNull null],
+     @"postalCode": placemark.postalCode ?: [NSNull null],
+     @"administrativeArea": placemark.administrativeArea ?: [NSNull null],
+     @"subAdministrativeArea": placemark.subAdministrativeArea ?: [NSNull null],
    };
 
     [results addObject:result];
