@@ -1,0 +1,16 @@
+{
+  "name": "react-native-geocoder",
+  "version": "0.1.0",
+  "description": "react native geocoding and reverse geocoding",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "geocoding"
+  ],
+  "author": "devfd",
+  "license": "MIT"
+}
