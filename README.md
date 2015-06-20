@@ -73,3 +73,15 @@ RNGeocoder.geocodeAddress('New York', (err, data) => {
   }
 ]
 ```
+
+## With Promise
+```
+RNGeocoder.reverseGeocodeLocation(NY).then((data) => {
+  ...  
+});
+
+RNGeocoder.geocodeAddress('New York').then((data) => {
+  ...
+});
+```
+
