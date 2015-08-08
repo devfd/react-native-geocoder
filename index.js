@@ -1,5 +1,8 @@
-var RNGeocoder = require('NativeModules').RNGeocoder;
-
+var {
+  NativeModules: {
+    RNGeocoder
+  }
+} = require('react-native');
 
 var Geocoder = {
 
