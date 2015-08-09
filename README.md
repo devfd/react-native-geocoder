@@ -13,7 +13,7 @@ Then add RNGeocoder folder to your xcode project.
 var RNGeocoder = require('react-native-geocoder');
 
 // Reverse Geocoding
-const NY = {
+var NY = {
   latitude: 40.7809261,
   longitude: -73.9637594
 };
@@ -77,7 +77,7 @@ RNGeocoder.geocodeAddress('New York', (err, data) => {
 ## With Promise
 ```
 RNGeocoder.reverseGeocodeLocation(NY).then((data) => {
-  ...  
+  ...
 });
 
 RNGeocoder.geocodeAddress('New York').then((data) => {
