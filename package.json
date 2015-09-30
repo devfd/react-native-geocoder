@@ -10,7 +10,8 @@
     "react-component",
     "react-native",
     "geocoding",
-    "ios"
+    "ios",
+    "android"
   ],
   "author": {
     "name": "devfd",
@@ -25,8 +26,5 @@
     "url": "https://github.com/devfd/react-native-geocoder/issues"
   },
   "homepage": "https://github.com/devfd/react-native-geocoder",
-  "peerDependencies": {
-    "react-native": ">= 0.4"
-  },
   "license": "MIT"
 }
