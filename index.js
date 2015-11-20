@@ -10,16 +10,13 @@ var Geocoder = {
 
     return new Promise((resolve, reject) => {
 
-      RNGeocoder.reverseGeocodeLocation(location, (err, data) => {
-        callback && callback(err, data);
-
-        if (err) {
-          return reject(err);
-        }
-
+      RNGeocoder.reverseGeocodeLocation(location, (err) => {
+        callback && callback(err, null);
+        reject(err);
+      }, (data) => {
+        callback && callback(null, data);
         resolve(data);
       });
-
     });
   },
 
@@ -27,16 +24,13 @@ var Geocoder = {
 
     return new Promise((resolve, reject) => {
 
-      RNGeocoder.geocodeAddress(address, (err, data) => {
-        callback && callback(err, data);
-
-        if (err) {
-          return reject(err);
-        }
-
+      RNGeocoder.geocodeAddress(address, (err) => {
+        callback && callback(err, null);
+        reject(err);
+      }, (data) => {
+        callback && callback(null, data);
         resolve(data);
       });
-
     });
   }
 };
