@@ -22,7 +22,7 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(reverseGeocodeLocation:(CLLocation *)location callback: (RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(reverseGeocodeLocation:(CLLocation *)location errorCallback: (RCTResponseSenderBlock)errorCallback successCallback: (RCTResponseSenderBlock)successCallback)
 {
   if (!self.geocoder) {
     self.geocoder = [[CLGeocoder alloc] init];
@@ -34,19 +34,19 @@ RCT_EXPORT_METHOD(reverseGeocodeLocation:(CLLocation *)location callback: (RCTRe
 
     if (error) {
       if (placemarks.count == 0) {
-        return callback(@[@"Not found", [NSNull null]]);
+        return errorCallback(@[@"Not found"]);
       }
 
-      return callback(@[error.description, [NSNull null]]);
+      return errorCallback(@[error.description]);
     }
 
 
-    callback(@[[NSNull null], [self placemarksToDictionary:placemarks]]);
+    successCallback(@[[self placemarksToDictionary:placemarks]]);
 
   }];
 }
 
-RCT_EXPORT_METHOD(geocodeAddress:(NSString *)address callback: (RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(geocodeAddress:(NSString *)address errorCallback: (RCTResponseSenderBlock)errorCallback successCallback: (RCTResponseSenderBlock)successCallback)
 {
   if (!self.geocoder) {
     self.geocoder = [[CLGeocoder alloc] init];
@@ -58,13 +58,13 @@ RCT_EXPORT_METHOD(geocodeAddress:(NSString *)address callback: (RCTResponseSende
 
     if (error) {
       if (placemarks.count == 0) {
-        return callback(@[@"Not found", [NSNull null]]);
+        return errorCallback(@[@"Not found"]);
       }
 
-      return callback(@[error.description, [NSNull null]]);
+      return errorCallback(@[error.description]);
     }
 
-    callback(@[[NSNull null], [self placemarksToDictionary:placemarks]]);
+    successCallback(@[[self placemarksToDictionary:placemarks]]);
 
   }];
 }
