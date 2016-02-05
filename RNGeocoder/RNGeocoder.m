@@ -78,7 +78,7 @@ RCT_EXPORT_METHOD(geocodeAddress:(NSString *)address errorCallback: (RCTResponse
 
     NSDictionary *result = @{
      @"name": placemark.name ?: [NSNull null],
-     @"location": @{
+     @"position": @{
          @"lat": [NSNumber numberWithDouble:placemark.location.coordinate.latitude],
          @"lng": [NSNumber numberWithDouble:placemark.location.coordinate.longitude],
          },
