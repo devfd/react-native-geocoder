@@ -1,3 +1,5 @@
+
+
 # react-native-geocoder
 geocoding services for react native
 
@@ -39,26 +41,16 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
   ......
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    mReactRootView = new ReactRootView(this);
-
-    mReactInstanceManager = ReactInstanceManager.builder()
-      .setApplication(getApplication())
-      .setBundleAssetName("index.android.bundle")
-      .setJSMainModuleName("index.android")
-      .addPackage(new MainReactPackage())
-      .addPackage(new RNGeocoderPackage())              // <------ add here
-      .setUseDeveloperSupport(BuildConfig.DEBUG)
-      .setInitialLifecycleState(LifecycleState.RESUMED)
-      .build();
-
-    mReactRootView.startReactApplication(mReactInstanceManager, "ExampleRN", null);
-
-    setContentView(mReactRootView);
+  protected List<ReactPackage> getPackages() {
+    return Arrays.<ReactPackage>asList(
+      new new RNGeocoderPackage(), // <------ add this line to your MainActivity class
+      new MainReactPackage());
   }
+
   ......
+
 }
+
 ```
 
 ## Usage
@@ -88,7 +80,7 @@ RNGeocoder.reverseGeocodeLocation(NY, (err, data) => {
     "locality":"New York",
     "subThoroughfare":"1000",
     "administrativeArea":"NY",
-    "location":{
+    "position":{
       "lat":40.7964708,
       "lng":-73.9545696
     },
@@ -116,7 +108,7 @@ RNGeocoder.geocodeAddress('New York', (err, data) => {
     "locality":"New York",
     "subThoroughfare":null,
     "administrativeArea":"NY",
-    "location":{
+    "position":{
       "lat":40.713054,
       "lng":-74.007228
     },
@@ -137,4 +129,13 @@ RNGeocoder.geocodeAddress('New York').then((data) => {
   ...
 });
 ```
+
+## Notes
+
+### iOS
+iOS does not allow sending multiple geocoding requests simultaneously.
+
+### Android
+geocoding may not work on older android devices (4.1) and will not work if Google play services are not available.
+
 
