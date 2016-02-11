@@ -43,7 +43,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
   @Override
   protected List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
-      new new RNGeocoderPackage(), // <------ add this line to your MainActivity class
+      new RNGeocoderPackage(), // <------ add this line to your MainActivity class
       new MainReactPackage());
   }
 
