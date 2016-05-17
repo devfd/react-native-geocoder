@@ -1,3 +1,32 @@
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+
+# node.js
+#
+node_modules/
+npm-debug.log
+
 # Built application files
 *.apk
 *.ap_
@@ -7,12 +36,25 @@
 
 # Java class files
 *.class
+*.iml
+*.aar
+*.zip
+google-services.json
 
 # Generated files
 bin/
 gen/
 
 # Gradle files
+.idea
+.gradle
+local.properties
+*.iml
+local.properties
+.idea/workspace.xml
+.idea/libraries
+build
+captures
 .gradle/
 build/
 

@@ -10,8 +10,8 @@ npm install --save react-native-geocoder
 ## Installation iOS
 
 1. In the XCode's "Project navigator", right click on Libraries folder under your project ➜ `Add Files to <...>`
-2. Go to `node_modules` ➜ `react-native-geocoder` and add the `RNGeocoder.xcodeproj` file
-3. Add libRNGeocoder.a to Build Phases -> Link Binary With Libraries
+2. Go to `node_modules` ➜ `react-native-geocoder` and add `ios/RNGeocoder.xcodeproj` file
+3. Add libRNGeocoder.a to "Build Phases" -> "Link Binary With Libraries"
 
 ##Installation Android
 1. In `android/setting.gradle`
@@ -43,8 +43,8 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
   @Override
   protected List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
-      new RNGeocoderPackage(), // <------ add this line to your MainActivity class
-      new MainReactPackage());
+            new MainReactPackage(),
+            new RNGeocoderPackage()); // <------ add this
   }
 
   ......
