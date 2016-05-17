@@ -4,8 +4,7 @@
   "description": "react native geocoding and reverse geocoding",
   "main": "index.js",
   "scripts": {
-    "test": "npm run e2e",
-    "e2e": "e2e/prepare.sh && e2e/run.sh"
+    "test": "e2e/run.sh"
   },
   "keywords": [
     "react-component",

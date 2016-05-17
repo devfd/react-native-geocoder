@@ -1,6 +1,9 @@
 
 
-# react-native-geocoder
+# react-native-geocoder 
+
+[![CircleCI](https://circleci.com/gh/devfd/react-native-geocoder/tree/master.svg?style=shield)](https://circleci.com/gh/devfd/react-native-geocoder/tree/master)
+
 geocoding services for react native
 
 ## Install

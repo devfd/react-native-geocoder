@@ -28,5 +28,4 @@ cp ../js/index.android.js .
 
 echo "Compile android"
 cd android
-./gradlew clean > /dev/null
-./gradlew assemble > /dev/null
+./gradlew clean assemble -PdisablePreDex

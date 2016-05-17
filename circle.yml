@@ -6,6 +6,6 @@ test:
     - emulator -avd circleci-android22 -no-audio -no-window:
         background: true
         parallel: true
+    - npm install -g react-native-cli
+    - e2e/prepare.sh
     - circle-android wait-for-boot
-  override:
-    - npm run e2e

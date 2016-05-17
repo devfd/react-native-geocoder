@@ -31,22 +31,21 @@ describe ('react-native-geocoder', function() {
         newCommandTimeout: 60000,
         app: path.resolve('e2e/GeocoderE2EApp/android/app/build/outputs/apk/app-debug.apk')
       })
-      .setImplicitWaitTimeout(3000);
-      // .waitForElementByXPath('//android.widget.Button[@text="Reload JS"]').
-      // then((elem) => {
-        // elem.click();
-      // }, (err) => {
-        // ignoring if Reload JS button can't be located
-      // })
+      .setImplicitWaitTimeout(3000)
+      .waitForElementByXPath('//android.widget.Button[@text="Reload JS"]')
+      .then((elem) => {
+        elem.click();
+      }, (err) => {
+        // ignoring if Reload JS button can't be located'
+      });
   });
 
   after(() => {
     return driver.quit();
   });
 
-
   it ('displays default view', async () => {
-    await driver.waitForElementByXPath('//android.widget.EditText[1]', 30000); // wait for view to be initialized
+    await driver.waitForElementByXPath('//android.widget.EditText[1]', 60000); // wait for view to be initialized
     await driver.waitForElementByXPath('//android.widget.EditText[2]');
     await driver.waitForElementByXPath('//android.widget.TextView[starts-with(@text, "Geocode")]');
     await driver.waitForElementByXPath('//android.widget.TextView[starts-with(@text, "Reverse")]');
