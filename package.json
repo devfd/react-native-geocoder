@@ -4,7 +4,8 @@
   "description": "react native geocoding and reverse geocoding",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run e2e",
+    "e2e": "e2e/prepare.sh && e2e/run.sh"
   },
   "keywords": [
     "react-component",
@@ -26,5 +27,15 @@
     "url": "https://github.com/devfd/react-native-geocoder/issues"
   },
   "homepage": "https://github.com/devfd/react-native-geocoder",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "appium": "^1.5.2",
+    "babel-core": "^6.8.0",
+    "babel-polyfill": "^6.8.0",
+    "babel-preset-react-native": "^1.8.0",
+    "chai": "^3.5.0",
+    "colors": "^1.1.2",
+    "mocha": "^2.4.5",
+    "wd": "^0.4.0"
+  }
 }
