@@ -2,7 +2,9 @@ import wd from 'wd';
 import path from 'path';
 import { expect } from 'chai';
 
-const SCREENSHOT_PATH = process.env['CIRCLE_ARTIFACTS'] || '/tmp';
+import { failWithShot } from './helpers/funcs.js';
+
+const shotDir = process.env['CIRCLE_ARTIFACTS'] || '/tmp';
 
 const London = {
   lat: 51.50853,
@@ -17,17 +19,15 @@ const Paris = {
 describe ('react-native-geocoder', function() {
   this.timeout(600000);
 
-  let driver;
+  const driver = wd.promiseChainRemote({
+    host: 'localhost',
+    port: 4723
+  });
+
+  require("./helpers/logging").configure(driver);
 
   before(() => {
-    driver = wd.promiseChainRemote({
-      host: 'localhost',
-      port: 4723
-    });
-    require("./helpers/logging").configure(driver);
-
-    return driver
-      .init({
+    return driver.init({
         platformName: 'Android',
         deviceName: 'Android Emulator',
         newCommandTimeout: 60000,
@@ -37,19 +37,17 @@ describe ('react-native-geocoder', function() {
   });
 
   after(async () => {
-    await driver.takeScreenshot();
-    await driver.saveScreenshot(`${SCREENSHOT_PATH}/done.png`);
     await driver.quit();
   });
 
-  it ('displays default view', async () => {
-    await driver.waitForElementByXPath('//android.widget.EditText[1]', 60000); // wait for view to be initialized
+  it ('displays default view', failWithShot(driver, shotDir, async function() {
+    await driver.waitForElementByXPath('//android.widget.EditText[1]', 120000); // wait for view to be initialized
     await driver.waitForElementByXPath('//android.widget.EditText[2]');
     await driver.waitForElementByXPath('//android.widget.TextView[starts-with(@text, "Geocode")]');
     await driver.waitForElementByXPath('//android.widget.TextView[starts-with(@text, "Reverse")]');
-  });
+  }));
 
-  it ('geocodes address', async () => {
+  it ('geocodes address', failWithShot(driver, shotDir, async function() {
     await driver.waitForElementByXPath('//android.widget.EditText[1]').sendKeys("London");
     await driver.waitForElementByXPath('//android.widget.TextView[starts-with(@text, "Geocode")]').click().click();
 
@@ -61,9 +59,9 @@ describe ('react-native-geocoder', function() {
 
     expect(lat - London.lat).to.be.below(0.001);
     expect(lng - London.lng).to.be.below(0.001);
-  });
+  }));
 
-  it ('geocodes lat lng into address', async () => {
+  it ('geocodes lat lng into address', failWithShot(driver, shotDir, async function() {
     await driver.waitForElementByXPath('//android.widget.EditText[2]').sendKeys(`${Paris.lat} ${Paris.lng}`);
     await driver.waitForElementByXPath('//android.widget.TextView[starts-with(@text, "Reverse")]').click().click();
 
@@ -75,7 +73,7 @@ describe ('react-native-geocoder', function() {
 
     expect(lat - Paris.lat).to.be.below(0.001);
     expect(lng - Paris.lng).to.be.below(0.001);
-  });
+  }));
 
 });
 

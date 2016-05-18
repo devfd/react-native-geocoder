@@ -4,7 +4,3 @@ require('babel-core/register')({
 require("babel-polyfill");
 
 require('colors');
-
-process.on('unhandledRejection', function(reason, p) {
-  throw new Error(reason);
-});
