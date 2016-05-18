@@ -2,6 +2,8 @@ import wd from 'wd';
 import path from 'path';
 import { expect } from 'chai';
 
+const SCREENSHOT_PATH = process.env['CIRCLE_ARTIFACTS'] || '/tmp';
+
 const London = {
   lat: 51.50853,
   lng: -0.12574,
@@ -31,17 +33,13 @@ describe ('react-native-geocoder', function() {
         newCommandTimeout: 60000,
         app: path.resolve('e2e/GeocoderE2EApp/android/app/build/outputs/apk/app-debug.apk')
       })
-      .setImplicitWaitTimeout(3000)
-      .waitForElementByXPath('//android.widget.Button[@text="Reload JS"]')
-      .then((elem) => {
-        elem.click();
-      }, (err) => {
-        // ignoring if Reload JS button can't be located'
-      });
+      .setImplicitWaitTimeout(3000);
   });
 
-  after(() => {
-    return driver.quit();
+  after(async () => {
+    await driver.takeScreenshot();
+    await driver.saveScreenshot(`${SCREENSHOT_PATH}/done.png`);
+    await driver.quit();
   });
 
   it ('displays default view', async () => {

@@ -1,6 +1,10 @@
 machine:
   node:
     version: 5.11.1
+dependencies:
+  cache_directories:
+    - "node_modules"
+    - "e2e/GeocoderE2EApp/node_modules"
 test:
   pre:
     - emulator -avd circleci-android22 -no-audio -no-window:
