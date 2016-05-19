@@ -10,19 +10,19 @@ geocoding services for react native
 ```
 npm install --save react-native-geocoder
 ```
-## Installation iOS
+## iOS
 
 1. In the XCode's "Project navigator", right click on Libraries folder under your project ➜ `Add Files to <...>`
 2. Go to `node_modules` ➜ `react-native-geocoder` and add `ios/RNGeocoder.xcodeproj` file
 3. Add libRNGeocoder.a to "Build Phases" -> "Link Binary With Libraries"
 
-##Installation Android
+## Android
 1. In `android/setting.gradle`
 
 ```gradle
 ...
-include ':RNGeocoder', ':app'
-project(':RNGeocoder').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-geocoder/android')
+include ':react-native-geocoder', ':app'
+project(':react-native-geocoder').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-geocoder/android')
 ```
 
 3. In `android/app/build.gradle`
@@ -31,7 +31,7 @@ project(':RNGeocoder').projectDir = new File(rootProject.projectDir, '../node_mo
 ...
 dependencies {
     ...
-    compile project(':RNGeocoder')
+    compile project(':react-native-geocoder')
 }
 ```
 
@@ -58,79 +58,53 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 
 ## Usage
 ```
-var RNGeocoder = require('react-native-geocoder');
+import Geocoder from 'react-native-geocoder';
 
-// Reverse Geocoding
+// Position Geocoding
 var NY = {
-  latitude: 40.7809261,
-  longitude: -73.9637594
+  lat: 40.7809261,
+  lng: -73.9637594
 };
 
-RNGeocoder.reverseGeocodeLocation(NY, (err, data) => {
-  if (err) {
-    return;
-  }
-
-  console.log(data);
-});
-
-// Returned value
-[
-  {
-    "postalCode":"10024",
-    "subAdministrativeArea":"New York",
-    "name":"Central Park",
-    "locality":"New York",
-    "subThoroughfare":"1000",
-    "administrativeArea":"NY",
-    "position":{
-      "lat":40.7964708,
-      "lng":-73.9545696
-    },
-    "country":"United States",
-    "subLocality":"Manhattan",
-    "thoroughfare":"5th Ave"
-  }
-]
+Geocoder.geocodePosition(NY).then(res => {
+    // res is an Array of geocoding object
+})
+.catch(err => console.log(err))
 
 // Address Geocoding
-RNGeocoder.geocodeAddress('New York', (err, data) => {
-  if (err) {
-    return;
-  }
-
-  console.log(data);
-});
-
-// Returned value
-[
-  {
-    "postalCode":null,
-    "subAdministrativeArea":"New York",
-    "name":"New York",
-    "locality":"New York",
-    "subThoroughfare":null,
-    "administrativeArea":"NY",
-    "position":{
-      "lat":40.713054,
-      "lng":-74.007228
-    },
-    "country":"United States",
-    "subLocality":null,
-    "thoroughfare":null
-  }
-]
+Geocoder.geocodeAddress('New York').then(res => {
+    // res is an Array of geocoding object
+})
+.catch(err => console.log(err))
 ```
 
-## With Promise
+## With async / await
 ```
-RNGeocoder.reverseGeocodeLocation(NY).then((data) => {
-  ...
-});
+const res = await Geocoder.geocodePosition(NY);
+...
 
-RNGeocoder.geocodeAddress('New York').then((data) => {
-  ...
-});
+const res = await Geocoder.geocodeAddress('London');
+...
+```
+
+## Geocoding return format
+both iOS and Android will return the following object:
+
+```js
+{
+    position: {lat, lng},
+    formattedAddress: String, // the full address
+    feature: String | null, // ex Yosemite Park, Eiffel Tower
+    streetNumber: String | null,
+    streetName: String | null,
+    postalCode: String | null,
+    locality: String | null, // city name
+    country: String, 
+    countryCode: String
+    adminArea: String | null
+    subAdminArea: String | null,
+    subLocality: String | null
+}
 ```
 
 ## Notes
