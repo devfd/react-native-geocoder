@@ -40,7 +40,7 @@ dependencies {
 ```java
 import com.devfd.RNGeocoder.RNGeocoderPackage; // <--- import
 
-public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
+public class MainActivity extends ReactActivity {
   ......
 
   @Override
@@ -67,27 +67,33 @@ var NY = {
 };
 
 Geocoder.geocodePosition(NY).then(res => {
-    // res is an Array of geocoding object
+    // res is an Array of geocoding object (see below)
 })
 .catch(err => console.log(err))
 
 // Address Geocoding
 Geocoder.geocodeAddress('New York').then(res => {
-    // res is an Array of geocoding object
+    // res is an Array of geocoding object (see below)
 })
 .catch(err => console.log(err))
 ```
 
 ## With async / await
 ```
-const res = await Geocoder.geocodePosition(NY);
-...
+try {
 
-const res = await Geocoder.geocodeAddress('London');
-...
+    const res = await Geocoder.geocodePosition(NY);
+    ...
+
+    const res = await Geocoder.geocodeAddress('London');
+    ...
+}
+catch(err) {
+    console.log(err);
+}
 ```
 
-## Geocoding return format
+## Geocoding object format
 both iOS and Android will return the following object:
 
 ```js

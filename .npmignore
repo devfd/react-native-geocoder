@@ -2,6 +2,8 @@ img
 example
 e2e
 test
+circle.yml
+.npmignore
 
 # OSX
 #
