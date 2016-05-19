@@ -33,7 +33,7 @@ public class RNGeocoderModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void geocodeAddress(String addressName, Promise promise) {
         if (!geocoder.isPresent()) {
-          promise.reject("-1", "Geocoder not available for this platform");
+          promise.reject("NOT_AVAILABLE", "Geocoder not available for this platform");
           return;
         }
 
@@ -50,7 +50,7 @@ public class RNGeocoderModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void geocodePosition(ReadableMap position, Promise promise) {
         if (!geocoder.isPresent()) {
-            promise.reject("-1", "Geocoder not available for this platform");
+            promise.reject("NOT_AVAILABLE", "Geocoder not available for this platform");
             return;
         }
 

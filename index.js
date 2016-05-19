@@ -1,39 +1,22 @@
-var {
-  NativeModules: {
-    RNGeocoder
-  }
-} = require('react-native');
+import { NativeModules } from 'react-native';
 
-var Geocoder = {
+const { RNGeocoder } = NativeModules;
 
-  reverseGeocodeLocation: function(location, callback) {
+export default {
 
-    return new Promise((resolve, reject) => {
+  geocodePosition(position) {
+    if (!position || !position.lat || !position.lng) {
+      return Promise.reject(new Error("invalid position: {lat, lng} required"));
+    }
 
-      RNGeocoder.reverseGeocodeLocation(location, (err) => {
-        callback && callback(err, null);
-        reject(err);
-      }, (data) => {
-        callback && callback(null, data);
-        resolve(data);
-      });
-    });
+    return RNGeocoder.geocodePosition(position);
   },
 
-  geocodeAddress: function(address, callback) {
+  geocodeAddress(address) {
+    if (!address) {
+      return Promise.reject(new Error("address is null"));
+    }
 
-    return new Promise((resolve, reject) => {
-
-      RNGeocoder.geocodeAddress(address, (err) => {
-        callback && callback(err, null);
-        reject(err);
-      }, (data) => {
-        callback && callback(null, data);
-        resolve(data);
-      });
-    });
-  }
-};
-
-
-module.exports = Geocoder;
+    return RNGeocoder.geocodeAddress(address);
+  },
+}
