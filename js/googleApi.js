@@ -63,7 +63,7 @@ export default {
       return Promise.reject(new Error("invalid apiKey / position"));
     }
 
-    return this.googleRequest(`${googleUrl}?key=${apiKey}&latlng=${position.lat},${position.lng}`);
+    return this.geocodeRequest(`${googleUrl}?key=${apiKey}&latlng=${position.lat},${position.lng}`);
   },
 
   geocodeAddress(apiKey, address) {
@@ -71,10 +71,10 @@ export default {
       return Promise.reject(new Error("invalid apiKey / address"));
     }
 
-    return this.googleRequest(`${googleUrl}?key=${apiKey}&address=${encodeURI(address)}`);
+    return this.geocodeRequest(`${googleUrl}?key=${apiKey}&address=${encodeURI(address)}`);
   },
 
-  async googleRequest(url) {
+  async geocodeRequest(url) {
     const res = await fetch(url);
     const json = await res.json();
 

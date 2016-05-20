@@ -16,24 +16,46 @@ const Paris = {
   lng: 2.3488,
 };
 
+const sleepBeforeStart = process.env['SAUCE_RUN'] ? 3 * 60 * 1000 : 10 * 1000;
+
+const driverConfig = process.env['SAUCE_RUN'] ?
+  { host: 'ondemand.saucelabs.com', port: 80 } :
+  { host: 'localhost', port: 4723 };
+
+let driverCaps = {
+  platformName: 'Android',
+  deviceName: 'Google Nexus 7C GoogleAPI Emulator',
+  platformVersion: '4.4',
+  newCommandTimeout: 600,
+  commandTimeout: 600,
+  idleTimeout: 1000,
+  app: 'http://localhost:8080/e2e/GeocoderE2EApp/android/app/build/outputs/apk/app-debug.apk',
+  appiumVersion: '1.5.2',
+}
+
+driverCaps = process.env['SAUCE_RUN'] ? driverCaps :
+  {
+    platformName: 'Android',
+    deviceName: 'Android emulator',
+    newCommandTimeout: 600,
+    app: 'http://localhost:8080/e2e/GeocoderE2EApp/android/app/build/outputs/apk/app-debug.apk',
+  };
+
 describe ('react-native-geocoder', function() {
-  this.timeout(600000);
+  this.timeout(60000000);
 
-  const driver = wd.promiseChainRemote({
-    host: 'localhost',
-    port: 4723
-  });
-
+  const driver = wd.promiseChainRemote(driverConfig);
   require("./helpers/logging").configure(driver);
 
-  before(() => {
-    return driver.init({
-        platformName: 'Android',
-        deviceName: 'Android Emulator',
-        newCommandTimeout: 60000,
-        app: path.resolve('e2e/GeocoderE2EApp/android/app/build/outputs/apk/app-debug.apk')
-      })
-      .setImplicitWaitTimeout(3000);
+  before(async function() {
+    console.log('Init driver');
+    await driver.init(driverCaps);
+
+    console.log('set implicit timeout');
+    await driver.setImplicitWaitTimeout(10000);
+
+    console.log('sleeping ', sleepBeforeStart);
+    await driver.sleep(sleepBeforeStart);
   });
 
   after(async () => {
@@ -41,7 +63,7 @@ describe ('react-native-geocoder', function() {
   });
 
   it ('displays default view', failWithShot(driver, shotDir, async function() {
-    await driver.waitForElementByXPath('//android.widget.EditText[1]', 120000); // wait for view to be initialized
+    await driver.waitForElementByXPath('//android.widget.EditText[1]', 5 * 60 * 1000); // wait for view to be initialized
     await driver.waitForElementByXPath('//android.widget.EditText[2]');
     await driver.waitForElementByXPath('//android.widget.TextView[starts-with(@text, "Geocode")]');
     await driver.waitForElementByXPath('//android.widget.TextView[starts-with(@text, "Reverse")]');

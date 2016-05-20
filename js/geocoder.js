@@ -16,7 +16,7 @@ export default {
     }
 
     return RNGeocoder.geocodePosition(position).catch(err => {
-      if (!this.apiKey) { throw err; }
+      if (!this.apiKey || err.code !== 'NOT_AVAILABLE') { throw err; }
       return GoogleApi.geocodePosition(this.apiKey, position);
     });
   },
@@ -27,7 +27,7 @@ export default {
     }
 
     return RNGeocoder.geocodeAddress(address).catch(err => {
-      if (!this.apiKey) { throw err; }
+      if (!this.apiKey || err.code !== 'NOT_AVAILABLE') { throw err; }
       return GoogleApi.geocodeAddress(this.apiKey, address);
     });
   },

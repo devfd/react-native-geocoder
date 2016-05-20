@@ -4,7 +4,7 @@
   "description": "react native geocoding and reverse geocoding",
   "main": "index.js",
   "scripts": {
-    "test": "e2e/run.sh"
+    "test": "mocha --recursive --require test/setup.js --reporter dot test/unit "
   },
   "keywords": [
     "react-component",
@@ -35,6 +35,9 @@
     "chai": "^3.5.0",
     "colors": "^1.1.2",
     "mocha": "^2.4.5",
+    "proxyquire": "^1.7.9",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0",
     "wd": "^0.4.0"
   }
 }
