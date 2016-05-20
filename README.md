@@ -78,6 +78,21 @@ Geocoder.geocodeAddress('New York').then(res => {
 .catch(err => console.log(err))
 ```
 
+## Fallback to google maps geocoding
+
+Geocoding services might not be included in some Android devices (Kindle, some 4.1 devices, non-google devices). For those special cases the lib can fallback to the [online google maps geocoding service](https://developers.google.com/maps/documentation/geocoding/intro#Geocoding)
+
+```js
+import Geocoder from 'react-native-geocoder';
+// simply add your google key
+Geocoder.fallbackToGoogle(MY_KEY);
+
+// use the lib as usual
+let ret = await Geocoder.geocodePosition({lat, lng})
+// you get the same results
+
+```
+
 ## With async / await
 ```
 try {

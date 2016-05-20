@@ -23,36 +23,36 @@ function format(raw) {
     }
   }
 
-  for (let component of raw.address_components) {
-    if (component.types.includes('route')) {
+  raw.address_components.forEach(component => {
+    if (component.types.indexOf('route') !== -1) {
       address.streetName = component.long_name;
     }
-    else if (component.types.includes('street_number')) {
+    else if (component.types.indexOf('street_number') !== -1) {
       address.streetNumber = component.long_name;
     }
-    else if (component.types.includes('country')) {
+    else if (component.types.indexOf('country') !== -1) {
       address.country = component.long_name;
       address.countryCode = component.short_name;
     }
-    else if (component.types.includes('locality')) {
+    else if (component.types.indexOf('locality') !== -1) {
       address.locality = component.long_name;
     }
-    else if (component.types.includes('postal_code')) {
+    else if (component.types.indexOf('postal_code') !== -1) {
       address.postalCode = component.long_name;
     }
-    else if (component.types.includes('administrative_area_level_1')) {
+    else if (component.types.indexOf('administrative_area_level_1') !== -1) {
       address.adminArea = component.long_name;
     }
-    else if (component.types.includes('administrative_area_level_2')) {
+    else if (component.types.indexOf('administrative_area_level_2') !== -1) {
       address.subAdminArea = component.long_name;
     }
-    else if (component.types.includes('sublocality') || component.types.includes('sublocality_level_1')) {
+    else if (component.types.indexOf('sublocality') !== -1 || component.types.indexOf('sublocality_level_1') !== -1) {
       address.subLocality = component.long_name;
     }
-    else if (component.types.includes('point_of_interest') || component.types.includes('colloquial_area')) {
+    else if (component.types.indexOf('point_of_interest') !== -1 || component.types.indexOf('colloquial_area') !== -1) {
       address.feature = component.long_name;
     }
-  }
+  });
 
   return address;
 }
