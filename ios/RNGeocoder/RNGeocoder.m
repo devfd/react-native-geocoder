@@ -105,7 +105,7 @@ RCT_EXPORT_METHOD(geocodeAddress:(NSString *)address
      @"postalCode": placemark.postalCode ?: [NSNull null],
      @"adminArea": placemark.administrativeArea ?: [NSNull null],
      @"subAdminArea": placemark.subAdministrativeArea ?: [NSNull null],
-     @"formattedAddress": [lines componentsJoinedByString:@","]
+     @"formattedAddress": [lines componentsJoinedByString:@", "]
    };
 
     [results addObject:result];
