@@ -131,7 +131,7 @@ both iOS and Android will return the following object:
 ## Notes
 
 ### iOS
-iOS does not allow sending multiple geocoding requests simultaneously.
+iOS does not allow sending multiple geocoding requests simultaneously, unless you enable the fallbackToGoogle to handle the parallel calls when an native iOS request is active.
 
 ### Android
 geocoding may not work on older android devices (4.1) and will not work if Google play services are not available.

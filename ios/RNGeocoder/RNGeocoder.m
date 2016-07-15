@@ -30,7 +30,9 @@ RCT_EXPORT_METHOD(geocodePosition:(CLLocation *)location
     self.geocoder = [[CLGeocoder alloc] init];
   }
 
-  [self.geocoder cancelGeocode];
+  if (self.geocoder.geocoding) {
+    return reject(@"NOT_AVAILABLE", @"geocodePosition busy", nil);
+  }
 
   [self.geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
 
@@ -55,16 +57,18 @@ RCT_EXPORT_METHOD(geocodeAddress:(NSString *)address
         self.geocoder = [[CLGeocoder alloc] init];
     }
 
-    [self.geocoder cancelGeocode];
+    if (self.geocoder.geocoding) {
+      return reject(@"NOT_AVAILABLE", @"geocodeAddress busy", nil);
+    }
 
     [self.geocoder geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error) {
 
         if (error) {
             if (placemarks.count == 0) {
-              return reject(@"NOT_FOUND", @"geocodePosition failed", error);
+              return reject(@"NOT_FOUND", @"geocodeAddress failed", error);
             }
 
-            return reject(@"ERROR", @"geocodePosition failed", error);
+            return reject(@"ERROR", @"geocodeAddress failed", error);
         }
 
         resolve([self placemarksToDictionary:placemarks]);
