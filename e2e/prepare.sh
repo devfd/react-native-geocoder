@@ -21,11 +21,11 @@ npm install ../../$NPM_PACKAGE > /dev/null
 rm -rf ../../$NPM_PACKAGE
 
 echo "Prepare android"
-cp -r ../android .
+rnpm link react-native-geocoder
 
 echo "Prepare JS app"
 cp ../js/index.android.js .
 
 echo "Compile android"
 cd android
-./gradlew clean assembleDebug -PdisablePreDex
+./gradlew clean assembleDebug

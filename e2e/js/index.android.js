@@ -51,9 +51,11 @@ class GeocoderE2EApp extends Component {
         <TouchableOpacity style={{padding: 10, backgroundColor: '#2c3e50'}} onPress={() => {
           this.refs.geoInput.blur();
 
+          this.setState({result: null});
+
           const [lat, lng] = this.state.reverseInput.split(' ');
 
-          Geocoder.reverseGeocodeLocation({latitude: 1 * lat, longitude: 1 * lng}).then((res) => {
+          Geocoder.geocodePosition({lat: 1 * lat, lng: 1 * lng}).then((res) => {
             this.setState({ result: res[0] });
           });
         }}>
