@@ -38,16 +38,12 @@ describe('googleApi', function() {
       }))
     }
 
-    it ('throws if invalid results', async function(done) {
-      try {
-        mockFetch({ status: "NOT_OK" });
-        await GoogleApi.geocodeRequest();
-        done(new Error('cannot be here'));
-      }
-      catch(err) {
-        expect(err.message).to.contain("NOT_OK");
-        done();
-      }
+    it ('throws if invalid results', function() {
+      mockFetch({ status: "NOT_OK" });
+      return GoogleApi.geocodeRequest().then(
+        () => { throw new Error('cannot be there') },
+        (err) => { expect(err.message).to.contain("NOT_OK"); }
+      );
     });
 
     describe('returns formatted results', function() {

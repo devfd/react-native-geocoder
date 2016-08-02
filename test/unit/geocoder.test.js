@@ -37,16 +37,13 @@ describe('geocoder', function() {
 
   describe('geocodePosition', function() {
 
-    it ('requires a valid position', async function(done) {
-      try {
-        await Geocoder.geocodePosition({});
-        done(new Error('should not be there'));
-      }
-      catch(err) {
-        expect(err).to.be.ok;
-        expect(err.message).to.contain('valid');
-        done();
-      }
+    it ('requires a valid position', function() {
+      return Geocoder.geocodePosition({}).then(
+        () => { throw new Error('should not be there') },
+        (err) => {
+          expect(err).to.be.ok;
+          expect(err.message).to.contain('valid');
+        });
     });
 
     it ('returns geocoding results', async function() {
@@ -55,16 +52,13 @@ describe('geocoder', function() {
       expect(RNGeocoder.geocodePosition).to.have.been.calledWith(position);
     });
 
-    it ('does not call google api if no apiKey', async function(done) {
+    it ('does not call google api if no apiKey', function() {
       const position = {lat: 1.234, lng: 4.567};
       RNGeocoder.geocodePosition = sinon.stub().returns(Promise.reject());
-      try {
-        await Geocoder.geocodePosition(position);
-        done(new Error('should not be there'));
-      } catch(err) {
-        expect(GoogleApi.geocodePosition).to.not.have.been.called;
-        done();
-      }
+      return Geocoder.geocodePosition(position).then(
+        () => { throw new Error('should not be there') },
+        (err) => { expect(GoogleApi.geocodePosition).to.not.have.been.called; }
+      );
     });
 
     it ('fallbacks to google api when not available', async function() {
@@ -76,32 +70,26 @@ describe('geocoder', function() {
       expect(ret).to.eql('google');
     });
 
-    it ('does not fallback to google api on error', async function(done) {
+    it ('does not fallback to google api on error', function() {
       const position = {lat: 1.234, lng: 4.567};
       RNGeocoder.geocodePosition = sinon.stub().returns(Promise.reject(new Error('something wrong')));
       Geocoder.fallbackToGoogle('myGoogleMapsAPIKey');
-      try {
-        const ret = await Geocoder.geocodePosition(position);
-        done(new Error('should not be called'));
-      }
-      catch(err) {
-        expect(err.message).to.eql('something wrong');
-        done();
-      }
+      return Geocoder.geocodePosition(position).then(
+        () => { throw new Error('should not be there') },
+        (err) => { expect(err.message).to.eql('something wrong'); }
+      );
     });
   });
 
   describe('geocodeAddress', function() {
-    it ('requires a valid address', async function(done) {
-      try {
-        await Geocoder.geocodeAddress();
-        done(new Error('should not be there'));
-      }
-      catch(err) {
-        expect(err).to.be.ok;
-        expect(err.message).to.contain('address is null');
-        done();
-      }
+    it ('requires a valid address', function() {
+      return Geocoder.geocodeAddress().then(
+        () => { throw new Error('should not be there') },
+        (err) => {
+          expect(err).to.be.ok;
+          expect(err.message).to.contain('address is null');
+        }
+      );
     });
 
     it ('returns geocoding results', async function() {
@@ -110,30 +98,23 @@ describe('geocoder', function() {
       expect(RNGeocoder.geocodeAddress).to.have.been.calledWith(address);
     });
 
-    it ('does not call google api if no apiKey', async function(done) {
+    it ('does not call google api if no apiKey', function() {
       const address = 'london';
       RNGeocoder.geocodeAddress = sinon.stub().returns(Promise.reject());
-      try {
-        await Geocoder.geocodeAddress(address);
-        done(new Error('should not be here'));
-      } catch(err) {
-        expect(GoogleApi.geocodeAddress).to.not.have.been.called;
-        done();
-      }
+      return Geocoder.geocodeAddress(address).then(
+        () => { throw new Error('should not be there') },
+        (err) => { expect(GoogleApi.geocodeAddress).to.not.have.been.called; }
+      );
     });
 
-    it ('does not fallback to google api on error', async function(done) {
+    it ('does not fallback to google api on error', function() {
       const address = 'london';
       RNGeocoder.geocodeAddress = sinon.stub().returns(Promise.reject(new Error('something wrong')));
       Geocoder.fallbackToGoogle('myGoogleMapsAPIKey');
-      try {
-        const ret = await Geocoder.geocodeAddress(address);
-        done(new Error('should not be called'));
-      }
-      catch(err) {
-        expect(err.message).to.eql('something wrong');
-        done();
-      }
+      return Geocoder.geocodeAddress(address).then(
+        () => { throw new Error('should not be there') },
+        (err) => { expect(err.message).to.eql('something wrong'); }
+      );
     });
 
     it ('fallbacks to google api on error', async function() {
