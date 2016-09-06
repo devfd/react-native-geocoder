@@ -74,11 +74,12 @@ public class RNGeocoderModule extends ReactContextBaseJavaModule {
             position.putDouble("lng", address.getLongitude());
             result.putMap("position", position);
 
-            if (!address.getFeatureName().equals(address.getSubThoroughfare()) &&
-                    !address.getFeatureName().equals(address.getThoroughfare()) &&
-                    !address.getFeatureName().equals(address.getLocality())) {
+            final String feature_name = address.getFeatureName();
+            if (feature_name != null && !feature_name.equals(address.getSubThoroughfare()) &&
+                    !feature_name.equals(address.getThoroughfare()) &&
+                    !feature_name.equals(address.getLocality())) {
 
-                result.putString("feature", address.getFeatureName());
+                result.putString("feature", feature_name);
             }
             else {
                 result.putString("feature", null);
