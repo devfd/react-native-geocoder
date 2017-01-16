@@ -31,7 +31,7 @@ RCT_EXPORT_METHOD(geocodePosition:(CLLocation *)location
   }
 
   if (self.geocoder.geocoding) {
-    return reject(@"NOT_AVAILABLE", @"geocodePosition busy", nil);
+    [self.geocoder cancelGeocode];
   }
 
   [self.geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -58,7 +58,7 @@ RCT_EXPORT_METHOD(geocodeAddress:(NSString *)address
     }
 
     if (self.geocoder.geocoding) {
-      return reject(@"NOT_AVAILABLE", @"geocodeAddress busy", nil);
+      [self.geocoder cancelGeocode];
     }
 
     [self.geocoder geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error) {
