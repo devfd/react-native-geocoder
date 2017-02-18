@@ -6,6 +6,14 @@
 
 geocoding services for react native
 
+
+## Version table
+| Geocoder Version | RN        |
+| ------- |:----------|
+| >=0.4.6   | >= 0.40.0 |
+| <0.4.5   | <0.40.0   |
+
+
 ## Install
 ```
 npm install --save react-native-geocoder
