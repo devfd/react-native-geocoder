@@ -1,5 +1,5 @@
-#import "RCTBridgeModule.h"
-#import "RCTConvert.h"
+#import <React/RCTBridgeModule.h>
+#import <React/RCTConvert.h>
 
 #import <CoreLocation/CoreLocation.h>
 
