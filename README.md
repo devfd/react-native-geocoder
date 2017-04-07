@@ -43,7 +43,7 @@ dependencies {
 }
 ```
 
-4. register module (in MainActivity.java)
+4. register module (in MainApplication.java)
 
 ```java
 import com.devfd.RNGeocoder.RNGeocoderPackage; // <--- import
