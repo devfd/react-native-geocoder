@@ -1,6 +1,6 @@
 {
   "name": "react-native-geocoder",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "description": "react native geocoding and reverse geocoding",
   "main": "index.js",
   "scripts": {
