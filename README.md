@@ -1,6 +1,6 @@
 
 
-# react-native-geocoder 
+# react-native-geocoder
 
 [![CircleCI](https://circleci.com/gh/devfd/react-native-geocoder/tree/master.svg?style=shield)](https://circleci.com/gh/devfd/react-native-geocoder/tree/master)
 
@@ -10,8 +10,10 @@ geocoding services for react native
 ## Version table
 | Geocoder Version | RN        |
 | ------- |:----------|
+| >=0.5.0   | >= 0.47.0 |
 | >=0.4.6   | >= 0.40.0 |
 | <0.4.5   | <0.40.0   |
+
 
 
 ## Install
@@ -128,7 +130,7 @@ both iOS and Android will return the following object:
     streetName: String | null,
     postalCode: String | null,
     locality: String | null, // city name
-    country: String, 
+    country: String,
     countryCode: String
     adminArea: String | null
     subAdminArea: String | null,
